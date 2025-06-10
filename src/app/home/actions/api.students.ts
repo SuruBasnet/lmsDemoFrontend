@@ -157,9 +157,9 @@ export async function searchStudents(searchValue:string): Promise<{
 
 export async function createStudent(studentData: StudentCreate): Promise<{
   success: boolean;
-  data?: any;
+  data?: StudentInfo;
   message?: string;
-  error?: any;
+  error?: Error;
 }> {
   const authToken = Cookies.get('auth_token');
   try {
@@ -209,11 +209,11 @@ export async function createStudent(studentData: StudentCreate): Promise<{
   }
 }
 
-export async function updateStudent(studentData: any, id: number): Promise<{
+export async function updateStudent(studentData: StudentCreate, id: number): Promise<{
   success: boolean;
-  data?: any;
+  data?: StudentInfo;
   message?: string;
-  error?: any;
+  error?: Error;
 }> {
   const authToken = Cookies.get('auth_token');
   try {
@@ -264,9 +264,8 @@ export async function updateStudent(studentData: any, id: number): Promise<{
 
 export async function deleteStudent(id: number): Promise<{
   success: boolean;
-  data?: any;
   message?: string;
-  error?: any;
+  error?: Error;
 }> {
   const authToken = Cookies.get('auth_token');
   try {

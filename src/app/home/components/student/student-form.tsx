@@ -137,11 +137,9 @@ export function StudentForm() {
 
 interface StudentFormProps {
   id: number
-  onSuccess?: () => void
 }
 
-export function StudentUpdateForm({ id, onSuccess }: StudentFormProps) {
-  const router = useRouter()
+export function StudentUpdateForm({ id }: StudentFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [status, setStatus] = useState("")

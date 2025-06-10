@@ -16,6 +16,43 @@ import {  StudentUpdateForm, DeleteStudentDialogoue } from "../student/student-f
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import { useState } from "react"
 
+const StudentActions = ({ student }: { student: StudentInfo }) => {
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  return (
+    <Dialog>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem>
+            Go to classroom
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DialogTrigger asChild>
+            <DropdownMenuItem>Update</DropdownMenuItem>
+          </DialogTrigger>
+          <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      
+      <StudentUpdateForm id={student.id} />
+      <DeleteStudentDialogoue
+        id={student.id}
+        open={deleteOpen}
+        onOpenChange={setDeleteOpen}
+      />
+    </Dialog>
+  );
+};
+
 export const columns: ColumnDef<StudentInfo>[] = [
   {
     accessorKey: "name",
@@ -74,42 +111,6 @@ export const columns: ColumnDef<StudentInfo>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
-    const student = row.original
-    const [deleteOpen, setDeleteOpen] = useState(false)
-
-      return (
-        <Dialog>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem>
-                Go to classroom
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DialogTrigger asChild>
-                <DropdownMenuItem>Update</DropdownMenuItem>
-              </DialogTrigger>
-              <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
-              Delete
-            </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          
-          <StudentUpdateForm id={student.id} onSuccess={() => {}} />
-          <DeleteStudentDialogoue
-          id={student.id}
-          open={deleteOpen}
-          onOpenChange={setDeleteOpen}
-        />
-        </Dialog>
-      )
-    },
+    cell: ({ row }) => <StudentActions student={row.original} />,
   },
 ]

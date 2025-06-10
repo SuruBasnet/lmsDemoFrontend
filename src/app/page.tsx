@@ -31,7 +31,7 @@ export default function StudentTable() {
           });
         }
         
-      } catch (err) {
+      } catch {
         toast.error("Error", {
           description: "An unexpected error occurred",
         });

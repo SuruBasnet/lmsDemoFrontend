@@ -1,4 +1,4 @@
-import { StudentInfo, User } from "../types";
+import { User } from "../types";
 import Cookies from 'js-cookie';
 
 export async function getUser(): Promise<{

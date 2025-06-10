@@ -81,7 +81,7 @@ export default function DataTable({ initialData }: { initialData: StudentInfo[] 
           })
           setData([])
         }
-      } catch (error) {
+      } catch  {
         toast.error("Error",{
           description: "An unexpected error occurred",
         })
@@ -93,26 +93,13 @@ export default function DataTable({ initialData }: { initialData: StudentInfo[] 
     [initialData, toast]
   )
 
-  // Debounce implementation
-  const debounce = (func: Function, delay: number) => {
-    let timer: NodeJS.Timeout
-    return (...args: any[]) => {
-      clearTimeout(timer)
-      timer = setTimeout(() => func(...args), delay)
-    }
-  }
-
-  const debouncedSearch = React.useMemo(
-    () => debounce(searchApi, 300),
-    [searchApi]
-  )
 
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Search for a student..."
-          onChange={(event) => debouncedSearch(event.target.value)}
+          onChange={(event) => searchApi(event.target.value)}
           className="max-w-sm"
           disabled={isSearching}
         />
