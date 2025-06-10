@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { StudentInfo } from "../../types"
-import { StudentForm, StudentUpdateForm, DeleteStudentDialogoue } from "../student/student-form"
+import {  StudentUpdateForm, DeleteStudentDialogoue } from "../student/student-form"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import { useState } from "react"
 
@@ -107,7 +107,6 @@ export const columns: ColumnDef<StudentInfo>[] = [
           id={student.id}
           open={deleteOpen}
           onOpenChange={setDeleteOpen}
-          onSuccess={() => window.location.reload()} // Or use router.refresh()
         />
         </Dialog>
       )

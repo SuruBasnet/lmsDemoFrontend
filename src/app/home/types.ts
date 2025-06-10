@@ -1,23 +1,24 @@
 export type StudentInfo = {
   id: number
   name: string
+  email: string
   plan: string
-  status: "pending" | "processing" | "success" | "failed"
+  status: string
   session: string
 }
 
-export interface GoogleMeetSpace {
-  name: string;
-  meetingUri: string;
-  meetingCode: string;
-  config: {
-    accessType: 'OPEN' | 'TRUSTED' | 'RESTRICTED';
-    entryPointAccess: 'ALL' | 'CREATOR';
-  };
+export type StudentCreate = {
+  name: string
+  email: string
+  plan: string
+  status: string
+  session?: string
 }
 
-export interface GoogleMeetError {
-  error: string;
-  message: string;
-  details?: any;
+export type User = {
+  id: number
+  username: string
+  profile: File
+  email: string
 }
+

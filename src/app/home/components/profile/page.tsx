@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { getUser } from "../../actions/api.user";
 import { toast } from "sonner";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"; // Use the shadcn/ui Avatar
+import { User } from "../../types";
 
 export function Profile() {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User>();
     
     useEffect(() => {
         const fetchData = async () => {
@@ -20,7 +21,7 @@ export function Profile() {
                         description: userResult.message || "Failed to load user data"
                     });
                 }
-            } catch (err) {
+            } catch {
                 toast.error("Error", {
                     description: "An unexpected error occurred",
                 });

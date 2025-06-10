@@ -1,11 +1,11 @@
-import { StudentInfo } from "../types";
+import { StudentCreate, StudentInfo } from "../types";
 import Cookies from 'js-cookie';
 
 export async function getStudents(): Promise<{
   success: boolean;
-  data?: any;
+  data?: StudentInfo[];
   message?: string;
-  error?: any;
+  error?: Error;
 }> {
   const authToken = Cookies.get('auth_token');
   try {
@@ -54,9 +54,9 @@ export async function getStudents(): Promise<{
 
 export async function retrieveStudents(id:number): Promise<{
   success: boolean;
-  data?: any;
+  data?: StudentInfo;
   message?: string;
-  error?: any;
+  error?: Error;
 }> {
   const authToken = Cookies.get('auth_token');
   try {
@@ -104,9 +104,9 @@ export async function retrieveStudents(id:number): Promise<{
 
 export async function searchStudents(searchValue:string): Promise<{
   success: boolean;
-  data?: any;
+  data?: StudentInfo[];
   message?: string;
-  error?: any;
+  error?: Error;
 }> {
   const authToken = Cookies.get('auth_token');
   try {
@@ -155,7 +155,7 @@ export async function searchStudents(searchValue:string): Promise<{
 }
 
 
-export async function createStudent(studentData: any): Promise<{
+export async function createStudent(studentData: StudentCreate): Promise<{
   success: boolean;
   data?: any;
   message?: string;

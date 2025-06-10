@@ -1,11 +1,11 @@
-import { StudentInfo } from "../types";
+import { StudentInfo, User } from "../types";
 import Cookies from 'js-cookie';
 
 export async function getUser(): Promise<{
   success: boolean;
-  data?: any;
+  data?: User;
   message?: string;
-  error?: any;
+  error?: Error;
 }> {
   const authToken = Cookies.get('auth_token');
   try {

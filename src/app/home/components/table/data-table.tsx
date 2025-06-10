@@ -4,7 +4,6 @@ import * as React from "react"
 import { columns } from "./columns"
 import { StudentInfo } from "../../types"
 import {
-  ColumnDef,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
@@ -15,18 +14,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import {
   Table,
@@ -41,8 +29,8 @@ import { toast } from "sonner"
 import { StudentForm } from "../student/student-form"
 import { useEffect } from "react"
 
-export default function DataTable({ initialData }: { initialData: any[] }) {
-  const [data, setData] = React.useState<any[]>([]); // or use StudentInfo[] if you have the type
+export default function DataTable({ initialData }: { initialData: StudentInfo[] }) {
+  const [data, setData] = React.useState<StudentInfo[]>([]); // or use StudentInfo[] if you have the type
 
   useEffect(() => {
     if (initialData) {
@@ -85,7 +73,7 @@ export default function DataTable({ initialData }: { initialData: any[] }) {
       setIsSearching(true)
       try {
         const result = await searchStudents(searchValue)
-        if (result.success) {
+        if (result.data) {
           setData(result.data || [])
         } else {
           toast.error("Error",{

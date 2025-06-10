@@ -16,21 +16,17 @@ import { Label } from "@/components/ui/label"
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { FormEvent, use, useEffect, useLayoutEffect, useState } from "react";
+import { FormEvent,  useEffect, useState } from "react";
 import { toast } from "sonner"
 import { createStudent, deleteStudent, retrieveStudents, updateStudent } from "../../actions/api.students"
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 import { useRouter } from "next/navigation"
-import { getStudents } from "../../actions/api.students"
 
 export function StudentForm() {
-    const router = useRouter()
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState("");
     const [open, setOpen] = useState(false) // 👈 Controlled dialog state
@@ -69,8 +65,7 @@ export function StudentForm() {
           description: result.message,
         });
       }
-    } catch (error) {
-      console.log(error)
+    } catch {
       toast.error("Error",{
         description: "An unexpected error occurred"
       });
@@ -162,7 +157,7 @@ export function StudentUpdateForm({ id, onSuccess }: StudentFormProps) {
     setIsFetching(true)
     try {
       const student = await retrieveStudents(id)
-      if (student) {
+      if (student.data) {
         setFormData({
           name: student.data.name || "",
           email: student.data.email || "",
@@ -209,7 +204,7 @@ export function StudentUpdateForm({ id, onSuccess }: StudentFormProps) {
         status: formData.get("status") as string
       }
 
-      let result = await updateStudent(data, id)
+      const result = await updateStudent(data, id)
       
       if (result.success) {
         toast.success("Success", {
@@ -223,8 +218,7 @@ export function StudentUpdateForm({ id, onSuccess }: StudentFormProps) {
         });
         setIsLoading(false);
       }
-    } catch (error) {
-      console.error(error);
+    } catch{
       toast.error("Error", {
         description: "An unexpected error occurred"
       });
@@ -250,7 +244,7 @@ export function StudentUpdateForm({ id, onSuccess }: StudentFormProps) {
             Update student
           </DialogTitle>
           <DialogDescription>
-            Update the student details and click submit when you're done.
+            Update the student details and click submit when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 my-3">
@@ -334,12 +328,10 @@ interface DeleteStudentDialogProps {
   id: number
   open: boolean
   onOpenChange: (open: boolean) => void
-  onSuccess?: () => void
 }
 
-export function DeleteStudentDialogoue({ id, open, onOpenChange, onSuccess }: DeleteStudentDialogProps){
+export function DeleteStudentDialogoue({ id, open, onOpenChange }: DeleteStudentDialogProps){
   const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
 
   const handleDelete = async () => {
     setIsLoading(true)
@@ -355,7 +347,7 @@ export function DeleteStudentDialogoue({ id, open, onOpenChange, onSuccess }: De
           description: result.message,
         })
       }
-    } catch (error) {
+    } catch {
       toast.error("Error", {
         description: "An unexpected error occurred",
       })

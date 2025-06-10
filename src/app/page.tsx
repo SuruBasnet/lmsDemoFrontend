@@ -4,16 +4,14 @@ import { useEffect, useState } from "react";
 import { getStudents } from "./home/actions/api.students";
 import DataTable from "./home/components/table/data-table";
 import { toast } from "sonner";
-import { getUser } from "./home/actions/api.user";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ModeToggle } from "./home/components/table/modeToggle/page";
 import { Logout } from "./auth/logout/page";
 import { Profile } from "./home/components/profile/page";
+import { StudentInfo } from "./home/types";
 
 export default function StudentTable() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<StudentInfo[]>([]);
   // const [user, setUser] = useState<any>(null); // Add state for user data
 
   useEffect(() => {
@@ -21,7 +19,7 @@ export default function StudentTable() {
       try {
         // Then fetch student data
         const studentsResult = await getStudents();
-        if (studentsResult.success) {
+        if (studentsResult.data && studentsResult.success) {
           setData(studentsResult.data);
           console.log(data)
           toast.success("Success", {
