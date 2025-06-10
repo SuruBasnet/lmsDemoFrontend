@@ -6,7 +6,7 @@ import DataTable from "./home/components/table/data-table";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator"
 import { ModeToggle } from "./home/components/table/modeToggle/page";
-import { Logout } from "./auth/logout/page";
+import { Logout } from "./auth/logout/logout";
 import { Profile } from "./home/components/profile/page";
 import { StudentInfo } from "./home/types";
 
