@@ -5,9 +5,9 @@ import { getStudents } from "./home/actions/api.students";
 import DataTable from "./home/components/table/data-table";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator"
-import { ModeToggle } from "./home/components/table/modeToggle/page";
+import { ModeToggle } from "./home/components/table/modeToggle/modeToggle";
 import { Logout } from "./auth/logout/logout";
-import { Profile } from "./home/components/profile/page";
+import { Profile } from "./home/components/profile/profile";
 import { StudentInfo } from "./home/types";
 
 export default function StudentTable() {
