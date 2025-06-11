@@ -31,7 +31,8 @@ import { useEffect } from "react"
 
 export default function DataTable({ initialData }: { initialData: StudentInfo[] }) {
   const [data, setData] = React.useState<StudentInfo[]>([]); // or use StudentInfo[] if you have the type
-
+  const [query, setQuery] = React.useState('');
+  const [debouncedQuery, setDebouncedQuery] = React.useState('');
   useEffect(() => {
     if (initialData) {
       setData(initialData);
@@ -93,13 +94,32 @@ export default function DataTable({ initialData }: { initialData: StudentInfo[] 
     [initialData, toast]
   )
 
+  useEffect(() => {
+        if (query === '') {
+      searchApi(''); // immediately trigger when input is cleared
+      setDebouncedQuery('');
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      setDebouncedQuery(query); // trigger API after 5s delay
+    }, 500);
+
+    return () => clearTimeout(timeoutId); // clear timeout if user types again
+  }, [query]);
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      searchApi(debouncedQuery);
+    }
+  }, [debouncedQuery]);
+
 
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Search for a student..."
-          onChange={(event) => searchApi(event.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           className="max-w-sm"
           disabled={isSearching}
         />
